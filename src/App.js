@@ -1,23 +1,20 @@
-import React from 'react'
-import {NavigationContainer} from '@react-navigation/native'
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import UserList from './views/UserList'
-import UserForm from './views/UserForm'
-import { Button, Icon} from '@rneui/themed';
-//import { Icon } from 'react-native-vector-icons' (resolver o prolblema desse botao que nao esta lincando)
-
-
-
+import UserList from './views/UserList';
+import UserForm from './views/UserForm';
+import { Button, Icon } from '@rneui/themed';
+import { UsersProvider } from './context/UsersContext';
 
 const Stack = createNativeStackNavigator();
 
-
 export default props => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="UserList"
-                screenOptions={screenOptions}>
+        <UsersProvider>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName="UserList"
+                    screenOptions={screenOptions}>
                     <Stack.Screen
                         name="UserList"
                         component={UserList}
@@ -28,7 +25,7 @@ export default props => {
                                     <Button
                                         onPress={() => navigation.navigate("UserForm")}
                                         type="clear"
-                                        icon={<Icon name="add" size={25} color="white" /> }
+                                        icon={<Icon name="add" size={25} color="white" />}
                                     />
                                 )
                             }
@@ -38,22 +35,21 @@ export default props => {
                         name="UserForm"
                         component={UserForm}
                         options={{
-                            title: "Fomulario de Usuários"
+                            title: "Formulário de Usuários"
                         }}
                     />
-            </Stack.Navigator>
-        </NavigationContainer>
+                </Stack.Navigator>
+            </NavigationContainer>
+        </UsersProvider>
     )
 }
 
 const screenOptions = {
     headerStyle: {
-        backgroundColor:'#f4511e' 
-        
+        backgroundColor: '#f4511e'
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-        fontWeight: ' bold'
+        fontWeight: 'bold'
     }
-
 }
